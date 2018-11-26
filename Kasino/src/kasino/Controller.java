@@ -1,4 +1,4 @@
-package Kasino;
+package labra5;
 
 /**
  *
@@ -24,6 +24,8 @@ public class Controller {
         view.menuView();      
 
     }
+    
+    
     
     // Menusta käynnistyvät metodit
     

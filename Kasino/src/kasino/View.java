@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Kasino;
+package labra5;
 
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
@@ -25,7 +25,7 @@ public class View {
        // JCheckBox checkbox = new JCheckBox("Tuplaus");
         ImageIcon icon = new ImageIcon("bliz.png"); // Kuva
         
-        Object[] options = {"Peli 1", "Peli 2", "Peli 3", "Peli 4", "Tietoa tekijöistä", "Sulje"};
+        Object[] options = {"Tietovisa", "Peli 2", "Peli 3", "Peli 4", "Tietoa tekijöistä", "Sulje"};
         int x = JOptionPane.showOptionDialog(null, "\n Valitse peli tai toiminto\n\n",
                 "BLIZZARD GAMES INC.",
                 // JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
