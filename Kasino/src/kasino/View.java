@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package labra5;
+package Kasino;
 
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;

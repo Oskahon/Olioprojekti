@@ -1,4 +1,4 @@
-package labra5;
+package Kasino;
 
 /**
  *

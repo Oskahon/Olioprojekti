@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package labra5;
+package Kasino;
 
 import java.util.*;
 import javax.swing.ImageIcon;
@@ -74,5 +74,4 @@ public class Peli666 {
        } while (pelissa == true);
         }
     }
-
 
