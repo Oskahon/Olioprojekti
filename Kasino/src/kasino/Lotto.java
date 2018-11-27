@@ -17,14 +17,10 @@ import javax.swing.JOptionPane;
  */
 public class Lotto {
 
-    Random rand = new Random();
+    private Random rand = new Random();
 
     private int[] arvotutnumerot = new int[7];
     private int[] valitutnumerot = new int[7];
-
-    public Lotto() {
-
-    }
 
     // Arpoo lottorivin
     public void arvoNumerot() {
