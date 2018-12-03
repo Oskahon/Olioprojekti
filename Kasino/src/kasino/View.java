@@ -8,7 +8,6 @@ package kasino;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 import javax.swing.ImageIcon;
-import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 
 /**
