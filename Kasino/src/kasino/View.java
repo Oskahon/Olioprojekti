@@ -9,11 +9,13 @@ import java.util.Arrays;
 import java.util.stream.IntStream;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author lastl
  */
 public class View {
+
     private Controller controller;
 
     public void menuView() {
@@ -21,7 +23,6 @@ public class View {
         // Päävalikko
         // JCheckBox checkbox = new JCheckBox("Tuplaus");
         ImageIcon icon = new ImageIcon("bliz.png"); // Kuva
-
 
         Object[] options = {"Tietovisa", "Lotto Simulaattori", "Synttärit", "Peli 4", "Tietoa tekijöistä", "Sulje"};
         int x = JOptionPane.showOptionDialog(null, "\n Valitse peli tai toiminto\n\n",
@@ -81,13 +82,12 @@ public class View {
     public void naytaViesti(String viesti) {
         JOptionPane.showMessageDialog(null, viesti);
     }
-    
+
     // Pyytää loton numerot
-    
     public int[] annaNumerot() {
-        
+
         int[] valitutnumerot = new int[7];
-        
+
         for (int i = 0; i < 7; i++) {
 
             boolean sisaltaa, validi = false;
@@ -103,7 +103,7 @@ public class View {
                     JOptionPane.showMessageDialog(null, "Et antanut kokonaislukua...");
                 }
             }
-            
+
             // sisaltaa tarkastus ei toimi jos etsittävä luku on alustettu
             int arvo;
             arvo = luku;
@@ -122,28 +122,32 @@ public class View {
 
         }
         Arrays.sort(valitutnumerot);
-        
+
         return valitutnumerot;
     }
-    
-    
-    
-    
+
     // ArvaaLuku
     public void aloitusNaytto() {
         String valintaStr;      // käyttäjän valinta merkkijonona
-        int valinta;            // valinta numerona
+        int valinta = 0;            // valinta numerona
+        boolean validi = false;
 
         // näytetään käyttäjälle päävalikko
-        valintaStr = JOptionPane.showInputDialog(null,
-                "Valitse toiminto (1-3) seuraavista: \n"
-                + "1: Jos et ole laiska \n"
-                + "2: Jos olet laiska \n"
-                + "3: Lopeta");
+        while (!validi) {
+            valintaStr = JOptionPane.showInputDialog(null,
+                    "Valitse toiminto (1-3) seuraavista: \n"
+                    + "1: Jos et ole laiska \n"
+                    + "2: Jos olet laiska \n"
+                    + "3: Lopeta");
 
-        // muutetaan käyttäjän vastaus numeroksi
-        valinta = Integer.parseInt(valintaStr);
-        
+            // muutetaan käyttäjän vastaus numeroksi
+            try {
+                valinta = Integer.parseInt(valintaStr);
+                validi = true;
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Lopeta peli syöttämällä luku 3.");
+            }
+        }
 
         // siirrytään käyttäjän haluamaan toimintoon
         switch (valinta) {
@@ -154,22 +158,19 @@ public class View {
                 laiska();
                 break;
             case 3:
-                lopetus();
+                //               lopetus();
                 break;
             default:
                 // näytetään valikko uudestaan, jos ei kunnollinen valinta
                 aloitusNaytto();
-                
+
         }
 
     }
-    
-    
-    
-    
+
     // jos käyttäjä on laiska, luku arvataan hänen puolestaan
     public void laiska() {
-        
+
         // käyttäjän luku
         controller.luvunTalletus1((int) (Math.random() * 10 + 1));
         // koneen luku
@@ -178,37 +179,35 @@ public class View {
         // saadaan takaisin haluttu vastaus
         int sinunLuku = controller.sinunLuku();
         int koneenLuku = controller.koneenLuku();
-        
+
         // näytetään arvotut luvut ja samalla 
         // kerrotaan onko pelaaja voittanut  tai hävinnyt
-        if(sinunLuku == koneenLuku){
+        if (sinunLuku == koneenLuku) {
             JOptionPane.showMessageDialog(null, "Sinun luku on " + sinunLuku
-            + "\nKoneen luku on " + koneenLuku + "\nVoitit!");
-        
+                    + "\nKoneen luku on " + koneenLuku + "\nVoitit!");
+
             // siirrytään takaisin aloitusnäyttöön
             aloitusNaytto();
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "Sinun luku on " + sinunLuku
-            + "\nKoneen luku on " + koneenLuku + "\nHävisit!");
-        
+                    + "\nKoneen luku on " + koneenLuku + "\nHävisit!");
+
             // siirrytään takaisin aloitusnäyttöön
             aloitusNaytto();
         }
     }
-    
-    
+
     // käyttäjä syöttää luvunsa itse
     public void eiLaiska() {
         // pyydetään käyttäjältä lisätietoa ennen kontrollerin kutsumista
-        String kayttajanSyotto =
-                JOptionPane.showInputDialog(null, "Anna luku [1-10]: ");
+        String kayttajanSyotto
+                = JOptionPane.showInputDialog(null, "Anna luku [1-10]: ");
         // käyttäjän luku
         // kontrolleri vaatii parametrina int, muutetaan se 'lennossa'.
-        controller.luvunTalletus1( Integer.parseInt(kayttajanSyotto) );
+        controller.luvunTalletus1(Integer.parseInt(kayttajanSyotto));
         // koneen luku
-        controller.luvunTalletus2((int) (Math.random()* 10 + 1));
-        
+        controller.luvunTalletus2((int) (Math.random() * 10 + 1));
+
         // pyydetään kontrolleria hoitamaan toiminto, 
         // saadaan takaisin haluttu vastaus
         int sinunLuku = controller.sinunLuku();
@@ -216,24 +215,21 @@ public class View {
 
         // näytetään pelaajan ja arvotu luvut ja samalla 
         // kerrotaan onko pelaaja voittanut tai hävinnyt         
-        if(sinunLuku == koneenLuku){
+        if (sinunLuku == koneenLuku) {
             JOptionPane.showMessageDialog(null, "Sinun luku on " + sinunLuku
-            + "\nKoneen luku on " + koneenLuku + "\nVoitit!");
+                    + "\nKoneen luku on " + koneenLuku + "\nVoitit!");
             // siirrytään takaisin aloitusnäyttöön
             aloitusNaytto();
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "Sinun luku on " + sinunLuku
-            + "\nKoneen luku on " + koneenLuku + "\nHävisit!");
+                    + "\nKoneen luku on " + koneenLuku + "\nHävisit!");
             // siirrytään takaisin aloitusnäyttöön
             aloitusNaytto();
         }
     }
-    
-    // keskeytytään peli
+
+    /*   // keskeytytään peli
     public void lopetus() {
         System.exit(0);
-    }
-    
-   
+    }*/
 }
