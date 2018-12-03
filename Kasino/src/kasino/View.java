@@ -43,7 +43,8 @@ public class View {
                 break;
             case 2:
                 // Käynnistä Peli 3
-                System.out.println("Peli 3 käynnistyy..");
+                System.out.println("Peli 2 käynnistyy..");
+                controller.syntarit();
                 break;
             case 3:
                 // Käynnistä 4
