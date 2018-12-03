@@ -9,13 +9,11 @@ import java.util.Arrays;
 import java.util.stream.IntStream;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-
 /**
  *
- * @author Ninja
+ * @author lastl
  */
 public class View {
-
     private Controller controller;
 
     public void menuView() {
@@ -50,7 +48,8 @@ public class View {
                 break;
             case 3:
                 // Käynnistä 4
-                System.out.println("4");
+                System.out.println("Peli 4 käynistyy..");
+                controller.arvaaluku();
                 break;
             case 4:
                 // Käynnistä 5
@@ -126,6 +125,115 @@ public class View {
         
         return valitutnumerot;
     }
+    
+    
+    
+    
+    // ArvaaLuku
+    public void aloitusNaytto() {
+        String valintaStr;      // käyttäjän valinta merkkijonona
+        int valinta;            // valinta numerona
 
+        // näytetään käyttäjälle päävalikko
+        valintaStr = JOptionPane.showInputDialog(null,
+                "Valitse toiminto (1-3) seuraavista: \n"
+                + "1: Jos et ole laiska \n"
+                + "2: Jos olet laiska \n"
+                + "3: Lopeta");
 
+        // muutetaan käyttäjän vastaus numeroksi
+        valinta = Integer.parseInt(valintaStr);
+        
+
+        // siirrytään käyttäjän haluamaan toimintoon
+        switch (valinta) {
+            case 1:
+                eiLaiska();
+                break;
+            case 2:
+                laiska();
+                break;
+            case 3:
+                lopetus();
+                break;
+            default:
+                // näytetään valikko uudestaan, jos ei kunnollinen valinta
+                aloitusNaytto();
+                
+        }
+
+    }
+    
+    
+    
+    
+    // jos käyttäjä on laiska, luku arvataan hänen puolestaan
+    public void laiska() {
+        
+        // käyttäjän luku
+        controller.luvunTalletus1((int) (Math.random() * 10 + 1));
+        // koneen luku
+        controller.luvunTalletus2((int) (Math.random() * 10 + 1));
+        // pyydetään kontrolleria hoitamaan toiminto, 
+        // saadaan takaisin haluttu vastaus
+        int sinunLuku = controller.sinunLuku();
+        int koneenLuku = controller.koneenLuku();
+        
+        // näytetään arvotut luvut ja samalla 
+        // kerrotaan onko pelaaja voittanut  tai hävinnyt
+        if(sinunLuku == koneenLuku){
+            JOptionPane.showMessageDialog(null, "Sinun luku on " + sinunLuku
+            + "\nKoneen luku on " + koneenLuku + "\nVoitit!");
+        
+            // siirrytään takaisin aloitusnäyttöön
+            aloitusNaytto();
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Sinun luku on " + sinunLuku
+            + "\nKoneen luku on " + koneenLuku + "\nHävisit!");
+        
+            // siirrytään takaisin aloitusnäyttöön
+            aloitusNaytto();
+        }
+    }
+    
+    
+    // käyttäjä syöttää luvunsa itse
+    public void eiLaiska() {
+        // pyydetään käyttäjältä lisätietoa ennen kontrollerin kutsumista
+        String kayttajanSyotto =
+                JOptionPane.showInputDialog(null, "Anna luku [1-10]: ");
+        // käyttäjän luku
+        // kontrolleri vaatii parametrina int, muutetaan se 'lennossa'.
+        controller.luvunTalletus1( Integer.parseInt(kayttajanSyotto) );
+        // koneen luku
+        controller.luvunTalletus2((int) (Math.random()* 10 + 1));
+        
+        // pyydetään kontrolleria hoitamaan toiminto, 
+        // saadaan takaisin haluttu vastaus
+        int sinunLuku = controller.sinunLuku();
+        int koneenLuku = controller.koneenLuku();
+
+        // näytetään pelaajan ja arvotu luvut ja samalla 
+        // kerrotaan onko pelaaja voittanut tai hävinnyt         
+        if(sinunLuku == koneenLuku){
+            JOptionPane.showMessageDialog(null, "Sinun luku on " + sinunLuku
+            + "\nKoneen luku on " + koneenLuku + "\nVoitit!");
+            // siirrytään takaisin aloitusnäyttöön
+            aloitusNaytto();
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Sinun luku on " + sinunLuku
+            + "\nKoneen luku on " + koneenLuku + "\nHävisit!");
+            // siirrytään takaisin aloitusnäyttöön
+            aloitusNaytto();
+        }
+    }
+    
+    // keskeytytään peli
+    public void lopetus() {
+        System.exit(0);
+    }
+    
+   
 }
