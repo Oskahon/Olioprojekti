@@ -23,7 +23,7 @@ public class View {
         ImageIcon icon = new ImageIcon("bliz.png"); // Kuva
 
 
-        Object[] options = {"Tietovisa", "Lotto Simulaattori", "Synttärit", "Peli 4", "Tietoa tekijöistä", "Sulje"};
+        Object[] options = {"Tietovisa", "Lotto Simulaattori", "Synttärit", "Arvaa Luku", "Tietoa tekijöistä", "Sulje"};
         int x = JOptionPane.showOptionDialog(null, "\n Valitse peli tai toiminto\n\n",
                 "BLIZZARD GAMES INC.",
                 // JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
