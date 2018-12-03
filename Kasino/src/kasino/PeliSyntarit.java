@@ -45,7 +45,7 @@ Object input2 = JOptionPane.showInputDialog(null, "Valitse syntymävuosisi", "BL
 
 Object input3 = JOptionPane.showInputDialog(null, "Valitse mikä tahansa kirjain", "BLIZZARD GAMES INC." , JOptionPane.QUESTION_MESSAGE, icon, letter,"A");
 
-Object input4 = JOptionPane.showInputDialog(null, "Aseta panos", "BLIZZARD GAMES INC." , JOptionPane.QUESTION_MESSAGE, icon,rate,"0,5");
+Object input4 = JOptionPane.showInputDialog(null, "Aseta panos", "BLIZZARD GAMES INC." , JOptionPane.QUESTION_MESSAGE, icon,rate,"0,5 euroa");
  
  
  String paiva = input.toString();
