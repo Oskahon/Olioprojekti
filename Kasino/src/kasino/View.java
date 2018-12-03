@@ -54,7 +54,11 @@ public class View {
                 break;
             case 4:
                 // Käynnistä 5
-                System.out.println("5");
+                System.out.println("Tietoa tekijöistä");
+                JOptionPane.showMessageDialog(null, "Tietovisa\nTekijä: Ninja Luotonen\n\n"
+                        + "Lotto Simulaattori\n Tekijä: Oskari Ahonen\n\n"
+                        + "Synttärit\nTekijä: Ekaterina Seikkinen \n\n"
+                        + "Arvaa Luku\nTekijä: Artem Kupri");
                 break;
             case 5:
                 // Käynnistä 6
