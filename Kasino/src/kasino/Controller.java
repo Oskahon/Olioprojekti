@@ -38,8 +38,9 @@ public class Controller {
     }
     
     public void lotto(){
-        peli2.annaNumerot();
-        peli2.tarkistaNumreot();
+        int[] annetutnumerot = view.annaNumerot();
+        String tulos = peli2.lottoStart(annetutnumerot);
+        view.naytaViesti(tulos);
     }
     
    
