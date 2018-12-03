@@ -1,4 +1,4 @@
-package Kasino;
+package kasino;
 
 /**
  *
@@ -8,6 +8,7 @@ public class Controller {
     // Kapseloidut ominaisuudet
     private View view;
     private Peli666 peli1;
+    private Lotto peli2;
     
     public Controller() {
         
@@ -15,6 +16,7 @@ public class Controller {
         
         // Valmistellaan kaikki pelit
         peli1 = new Peli666(); 
+        peli2 = new Lotto();
         
         // välitetään näytölle tieto sovelluksen kontrollerista eli
         // tämä komponentti itse (this).
@@ -35,8 +37,12 @@ public class Controller {
         peli1.startpeli();
     }
     
+    public void lotto(){
+        peli2.annaNumerot();
+        peli2.tarkistaNumreot();
+    }
     
-    
+   
     
     // Ohjelma käynnistyy tästä
     public static void main(String[] args) {
