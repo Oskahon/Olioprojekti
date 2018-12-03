@@ -57,7 +57,7 @@ public class Controller {
     
     public void syntarit(){
         System.out.println("Peli 2 käynnistyy..");
-        peli3.startpeli2();
+        view.syntarit();
     }
     
     public void arvaaluku(){
@@ -103,6 +103,58 @@ public class Controller {
         // naytto.aloitusNaytto();
     }
     // Arvaa Luvun skriptti päättyy
+    
+      
+   //Katjan peli "synttärit"
+    
+   public String[] paiva(){
+   String[] day = peli3.getPaiva();
+   return day;
+}
+public String[] kuukausi() {
+    String[]  month = peli3.getKuukausi();
+    return month;
+    }
+
+public String[] vuosi() {
+    String[]  year = peli3.getVuosi();
+    return year;
+    }
+
+public String[] kirjain() {
+    String[]  letter = peli3.getKirjain();
+    return letter;
+    }
+
+public String[] panos() {
+    String[]  rate = peli3.getPanos();
+    return rate;
+    }
+
+public Double DoubleConvert(Object panos){
+ return peli3.DoubleConvert(panos);
+}
+
+public String getKoneenpaiva(){
+   String koneenpaiva = peli3.getKoneenpaiva();
+   return koneenpaiva;
+}
+public String getKoneenkuukaisi(){
+   String koneenkuukausi = peli3.getKoneenkuukausi();
+   return koneenkuukausi;
+}
+
+public String getKoneenvuosi(){
+   String koneenvuosi = peli3.getKoneenvuosi();
+   return koneenvuosi;
+}
+
+//saadaan satunnaiskirjan 
+public String getKoneenkirjain(){
+   String koneenkirjain = peli3.getKoneenkirjain();
+   return koneenkirjain;
+}
+  // Synttärin skriptti päättyy
     
     // Ohjelma käynnistyy tästä
     public static void main(String[] args) {

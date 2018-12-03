@@ -24,7 +24,7 @@ public class View {
         // JCheckBox checkbox = new JCheckBox("Tuplaus");
         ImageIcon icon = new ImageIcon("bliz.png"); // Kuva
 
-        Object[] options = {"Tietovisa", "Lotto Simulaattori", "Synttärit", "Peli 4", "Tietoa tekijöistä", "Sulje"};
+        Object[] options = {"Tietovisa", "Lotto Simulaattori", "Synttärit", "Arvaa Luku", "Tietoa tekijöistä", "Sulje"};
         int x = JOptionPane.showOptionDialog(null, "\n Valitse peli tai toiminto\n\n",
                 "BLIZZARD GAMES INC.",
                 // JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
@@ -227,8 +227,62 @@ public class View {
             aloitusNaytto();
         }
     }
-
-    /*   // keskeytytään peli
+    
+    public void syntarit(){
+         //esitellään muuttajat
+         String koneenpaiva,koneenkuukausi, koneenvuosi,koneenkirjain;
+         String antamapaiva,antamakuukausi, antamavuosi, antamakirjain;
+         double antamapanos;
+         
+         ImageIcon icon = new ImageIcon("qst.png");
+         
+         Object input4 =  JOptionPane.showInputDialog(null, "Aseta panos", "BLIZZARD GAMES INC." , JOptionPane.QUESTION_MESSAGE, icon,controller.panos(),"0,5");
+         
+         antamapanos = controller.DoubleConvert(input4);
+        
+         antamapaiva = (String) JOptionPane.showInputDialog(null, "Valitse syntymäpäiväsi", "BLIZZARD GAMES INC.", JOptionPane.QUESTION_MESSAGE, icon, controller.paiva(),"1");
+         antamakuukausi = (String) JOptionPane.showInputDialog(null, "Valitse syntymäkuukausisi", "BLIZZARD GAMES INC.", JOptionPane.QUESTION_MESSAGE,icon, controller.kuukausi(),"tammi");
+         antamavuosi = (String) JOptionPane.showInputDialog(null, "Valitse syntymävuosisi", "BLIZZARD GAMES INC." , JOptionPane.QUESTION_MESSAGE, icon,controller.vuosi(),"00");
+         antamakirjain = (String)JOptionPane.showInputDialog(null, "Valitse mikä tahansa kirjain", "BLIZZARD GAMES INC." , JOptionPane.QUESTION_MESSAGE, icon, controller.kirjain(),"A");
+         
+         
+         koneenpaiva = controller.getKoneenpaiva();
+         koneenkuukausi = controller.getKoneenkuukaisi();
+         koneenvuosi = controller.getKoneenvuosi();
+         koneenkirjain =controller.getKoneenkirjain();
+        
+         JOptionPane.showMessageDialog(null, "Valmis rivi: "+antamapaiva+" "+antamakuukausi+" "+antamavuosi+" "+antamakirjain+ "\nKoneen rivi: " +koneenpaiva+" "+koneenkuukausi+" "+koneenvuosi+" "+koneenkirjain, "BLIZZARD GAMES INC.", 0, icon);
+         
+         if (antamapaiva.equals(koneenpaiva)&&antamakuukausi.equals(koneenkuukausi)&&antamavuosi.equals(koneenvuosi)&&antamakirjain.equals(koneenkirjain)){
+         JOptionPane.showMessageDialog(null, "Voittosi on " + antamapanos*150000 + " euroa");
+         }
+         //troller.talletus(antamapanos*150000);}
+         else if(antamapaiva.equals(koneenpaiva) && antamakuukausi.equals(koneenkuukausi) && antamavuosi.equals(koneenvuosi)){
+         JOptionPane.showMessageDialog(null, "Voittosi on " +antamapanos*5000 + " euroa");
+        }
+         else if(antamakuukausi.equals(koneenkuukausi) && antamavuosi.equals(koneenvuosi)){
+         JOptionPane.showMessageDialog(null, "Voittosi on " + antamapanos*500 + " euroa");
+         }
+         else if(antamapaiva.equals(koneenpaiva) && antamakuukausi.equals(koneenkuukausi)&& antamakirjain.equals(koneenkirjain)){
+         JOptionPane.showMessageDialog(null, "Voittosi on " + antamapanos*250 + " euroa");
+         }
+         else if(antamakuukausi.equals(koneenkuukausi) && antamavuosi.equals(koneenvuosi)){
+         JOptionPane.showMessageDialog(null, "Voittosi on " + antamapanos*50 + " euroa");
+         }
+         else if (antamapaiva.equals(koneenpaiva) && antamakuukausi.equals(koneenkuukausi)){
+         JOptionPane.showMessageDialog(null, "Voittosi on " + antamapanos*15 + " euroa");
+       }
+         else if(antamakuukausi.equals(koneenkuukausi) && antamakirjain.equals(koneenkirjain)){
+         JOptionPane.showMessageDialog(null, "Voittosi on " + antamapanos*10 + " euroa");
+         }
+         else if(antamakuukausi.equals(koneenkuukausi)){
+         JOptionPane.showMessageDialog(null, "Voittosi on " + antamapanos*2 + " euroa");
+         }
+         else  {naytaViesti("Valitettavasti et voittanut! ");}
+      
+         }
+    
+    // keskeytytään peli
     public void lopetus() {
         System.exit(0);
     }*/
