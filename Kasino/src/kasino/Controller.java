@@ -43,8 +43,6 @@ public class Controller {
     // Menusta käynnistyvät metodit
     
     public void peli1(){
-        // Kutsu(Käynnistä) peli (Malli)
-        System.out.println("Peli 1 käynnistyy..");
         peli1.startpeli();
     }
     
@@ -56,12 +54,10 @@ public class Controller {
     }
     
     public void syntarit(){
-        System.out.println("Peli 2 käynnistyy..");
         view.syntarit();
     }
     
     public void arvaaluku(){
-        System.out.println("Peli 4 käynnistyy..");
         view.aloitusNaytto();
     }
     
