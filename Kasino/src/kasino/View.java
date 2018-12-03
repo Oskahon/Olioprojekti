@@ -5,6 +5,8 @@
  */
 package kasino;
 
+import java.util.Arrays;
+import java.util.stream.IntStream;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
@@ -23,7 +25,7 @@ public class View {
         // JCheckBox checkbox = new JCheckBox("Tuplaus");
         ImageIcon icon = new ImageIcon("bliz.png"); // Kuva
 
-        Object[] options = {"Tietovisa", "Lotto", "Peli 3", "Peli 4", "Tietoa tekijöistä", "Sulje"};
+        Object[] options = {"Tietovisa", "Lotto Simulaattori", "Peli 3", "Peli 4", "Tietoa tekijöistä", "Sulje"};
         int x = JOptionPane.showOptionDialog(null, "\n Valitse peli tai toiminto\n\n",
                 "BLIZZARD GAMES INC.",
                 // JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
@@ -38,7 +40,7 @@ public class View {
                 break;
             case 1:
                 // Käynnistä Peli 2
-                System.out.println("Peli 2 käynnistyy..");
+                System.out.println("Lotto Simulaattori käynnistyy..");
                 controller.lotto();
                 break;
             case 2:
@@ -75,5 +77,50 @@ public class View {
     public void naytaViesti(String viesti) {
         JOptionPane.showMessageDialog(null, viesti);
     }
+    
+    // Pyytää loton numerot
+    
+    public int[] annaNumerot() {
+        
+        int[] valitutnumerot = new int[7];
+        
+        for (int i = 0; i < 7; i++) {
+
+            boolean sisaltaa, validi = false;
+            int luku = 0;
+
+            // Varmistetaan, että annettu arvo on kokonaisluku
+            while (!validi) {
+                String numero = JOptionPane.showInputDialog(null, "Anna " + (i + 1) + ".numero:");
+                try {
+                    luku = Integer.parseInt(numero);
+                    validi = true;
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Et antanut kokonaislukua...");
+                }
+            }
+            
+            // sisaltaa tarkastus ei toimi jos etsittävä luku on alustettu
+            int arvo;
+            arvo = luku;
+
+            sisaltaa = IntStream.of(valitutnumerot).anyMatch(x -> x == arvo);
+
+            if (arvo <= 0 || arvo > 40) {
+                i--;
+                JOptionPane.showMessageDialog(null, "Antamasi luku ei ollut väliltä 1 - 40. Anna uusi luku.");
+            } else if (sisaltaa) {
+                i--;
+                JOptionPane.showMessageDialog(null, "Antamasi numero on jo annettu kertaalleen. Anna uusi luku.");
+            } else {
+                valitutnumerot[i] = arvo;
+            }
+
+        }
+        Arrays.sort(valitutnumerot);
+        
+        return valitutnumerot;
+    }
+
 
 }
