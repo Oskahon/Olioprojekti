@@ -25,7 +25,8 @@ public class View {
         // JCheckBox checkbox = new JCheckBox("Tuplaus");
         ImageIcon icon = new ImageIcon("bliz.png"); // Kuva
 
-        Object[] options = {"Tietovisa", "Lotto Simulaattori", "Peli 3", "Peli 4", "Tietoa tekijöistä", "Sulje"};
+
+        Object[] options = {"Tietovisa", "Lotto Simulaattori", "Synttärit", "Peli 4", "Tietoa tekijöistä", "Sulje"};
         int x = JOptionPane.showOptionDialog(null, "\n Valitse peli tai toiminto\n\n",
                 "BLIZZARD GAMES INC.",
                 // JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
@@ -45,7 +46,8 @@ public class View {
                 break;
             case 2:
                 // Käynnistä Peli 3
-                System.out.println("Peli 3 käynnistyy..");
+                System.out.println("Peli 2 käynnistyy..");
+                controller.syntarit();
                 break;
             case 3:
                 // Käynnistä 4

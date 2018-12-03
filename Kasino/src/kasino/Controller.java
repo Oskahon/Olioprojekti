@@ -9,6 +9,7 @@ public class Controller {
     private View view;
     private Peli666 peli1;
     private Lotto peli2;
+    private PeliSyntarit peli3;
     
     public Controller() {
         
@@ -17,6 +18,8 @@ public class Controller {
         // Valmistellaan kaikki pelit
         peli1 = new Peli666(); 
         peli2 = new Lotto();
+        peli3 = new PeliSyntarit();
+        
         
         // välitetään näytölle tieto sovelluksen kontrollerista eli
         // tämä komponentti itse (this).
@@ -41,6 +44,11 @@ public class Controller {
         int[] annetutnumerot = view.annaNumerot();
         String tulos = peli2.lottoStart(annetutnumerot);
         view.naytaViesti(tulos);
+    }
+    
+    public void syntarit(){
+        System.out.println("Peli 2 käynnistyy..");
+        peli3.startpeli2();
     }
     
    
