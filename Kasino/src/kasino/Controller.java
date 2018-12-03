@@ -41,6 +41,7 @@ public class Controller {
     }
     
     public void lotto(){
+        view.naytaViesti("Huom! Koska Lotossa haetaan 7.oikein tulosta, simulointi voi kestää muutamia minuutteja.");
         int[] annetutnumerot = view.annaNumerot();
         String tulos = peli2.lottoStart(annetutnumerot);
         view.naytaViesti(tulos);
