@@ -32,7 +32,7 @@ public class Lotto {
             // Nollaa arvottujen numeroiden taulukon, sekä oikeiden numeroiden määrän   
             arvotutnumerot = new int[7];
             oikeatnumerot = 0;
-            
+
             saldo--;
             kierrokset++;
 
@@ -58,10 +58,9 @@ public class Lotto {
                 boolean sisaltaa = IntStream.of(valitutnumerot).anyMatch(x -> x == luku);
                 if (sisaltaa) {
                     oikeatnumerot++;
-                }
+                } 
             }
-
-            // Laskee eri voittojen määrän
+            
             switch (oikeatnumerot) {
                 case 4:
                     oikein4++;
@@ -92,7 +91,7 @@ public class Lotto {
         oikein4 *= 10;
         oikein5 *= 50;
         oikein6 *= 10000;
-        saldo = saldo + oikein3 + oikein4 + oikein5 + oikein6 + 1500000;
+        saldo = saldo + oikein3 + oikein4 + oikein5 + oikein6 + 2000000;
 
         // Tulosviesti
         String tulos = "Valitut numerot: \n" + valnumerot
