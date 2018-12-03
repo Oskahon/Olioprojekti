@@ -158,7 +158,6 @@ public class View {
                 laiska();
                 break;
             case 3:
-                //               lopetus();
                 break;
             default:
                 // näytetään valikko uudestaan, jos ei kunnollinen valinta
@@ -282,8 +281,5 @@ public class View {
       
          }
     
-    // keskeytytään peli
-    public void lopetus() {
-        System.exit(0);
-    }*/
+
 }
