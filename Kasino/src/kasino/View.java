@@ -204,13 +204,28 @@ public class View {
 
     // käyttäjä syöttää luvunsa itse
     public void eiLaiska() {
+        String kayttajanSyottoStr;
+        int kayttajanSyotto = 0;
+        boolean validi = false;
         // pyydetään käyttäjältä lisätietoa ennen kontrollerin kutsumista
-        String kayttajanSyotto
-                = JOptionPane.showInputDialog(null, "Anna luku [1-10]. "
-                        + "\nJos luku on desimaaliluku, se pyöristetään alas.");
+
+        while (!validi) {
+        kayttajanSyottoStr
+                = JOptionPane.showInputDialog(null, "Anna luku [1-10]");
+        
+        
+        try {
+        kayttajanSyotto = Integer.parseInt(kayttajanSyottoStr);
+        validi = true;
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Vain kokonaisluku kelpaa");
+            }
+        }
         // käyttäjän luku
         // kontrolleri vaatii parametrina int, muutetaan se 'lennossa'.
-        controller.luvunTalletus1((int) (Double.parseDouble(kayttajanSyotto)));
+        controller.luvunTalletus1(kayttajanSyotto);
+
+        
         // koneen luku
         controller.luvunTalletus2((int) (Math.random() * 10 + 1));
 
