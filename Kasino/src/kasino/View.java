@@ -40,7 +40,7 @@ public class View {
             case 1:
                 // Käynnistä Peli 2
                 System.out.println("Lotto Simulaattori käynnistyy..");
-                controller.lotto();
+                lottoView();
                 break;
             case 2:
                 // Käynnistä Peli 3
@@ -81,6 +81,30 @@ public class View {
 
     public void naytaViesti(String viesti) {
         JOptionPane.showMessageDialog(null, viesti);
+    }
+    
+    public void lottoView() {
+
+        // Lotto valikko
+
+        Object[] options = {"Lotto", "7. Oikein", "Lopetus"};
+        int x = JOptionPane.showOptionDialog(null, "Valitse peli tai toiminto", "Valitse peli", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+
+        switch (x) {
+            case 0:
+                controller.lotto();
+                break;
+            case 1:
+                controller.lotto7();
+                break;
+            case 2:
+                menuView();
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Suljit ohjelman");
+                System.exit(0);
+        }
+        lottoView(); // Jos napilla ei ole vielä toimintoa, mennään takaisin menuun
     }
 
     // Pyytää loton numerot
