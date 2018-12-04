@@ -201,10 +201,11 @@ public class View {
     public void eiLaiska() {
         // pyydetään käyttäjältä lisätietoa ennen kontrollerin kutsumista
         String kayttajanSyotto
-                = JOptionPane.showInputDialog(null, "Anna luku [1-10]: ");
+                = JOptionPane.showInputDialog(null, "Anna luku [1-10]. "
+                        + "\nJos luku on desimaaliluku, se pyöristetään alas.");
         // käyttäjän luku
         // kontrolleri vaatii parametrina int, muutetaan se 'lennossa'.
-        controller.luvunTalletus1(Integer.parseInt(kayttajanSyotto));
+        controller.luvunTalletus1((int)(Double.parseDouble(kayttajanSyotto)));
         // koneen luku
         controller.luvunTalletus2((int) (Math.random() * 10 + 1));
 
