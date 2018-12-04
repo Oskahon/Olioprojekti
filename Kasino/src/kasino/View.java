@@ -98,8 +98,12 @@ public class View {
             while (!validi) {
                 String numero = JOptionPane.showInputDialog(null, "Anna " + (i + 1) + ".numero:");
                 try {
-                    luku = Integer.parseInt(numero);
-                    validi = true;
+                    if (numero == null) {
+                        lottoView();
+                    } else {
+                        luku = Integer.parseInt(numero);
+                        validi = true;
+                    }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Et antanut kokonaislukua...");
                 }
@@ -205,7 +209,7 @@ public class View {
                         + "\nJos luku on desimaaliluku, se pyöristetään alas.");
         // käyttäjän luku
         // kontrolleri vaatii parametrina int, muutetaan se 'lennossa'.
-        controller.luvunTalletus1((int)(Double.parseDouble(kayttajanSyotto)));
+        controller.luvunTalletus1((int) (Double.parseDouble(kayttajanSyotto)));
         // koneen luku
         controller.luvunTalletus2((int) (Math.random() * 10 + 1));
 
