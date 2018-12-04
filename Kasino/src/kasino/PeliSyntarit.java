@@ -79,6 +79,21 @@ public String getKoneenkirjain(){
    int n = (int)Math.floor(Math.random()*letter.length);
    return koneenkirjain = letter[n];
 }
+    
+//lasketaan  sattuman maara
+public String sattumanmaara(String paiva,String kuukausi, String vuosi, String kirjain,
+        String koneenpaiva,String koneenkuukausi, String koneenvuosi, String koneenkirjain){
+   
+    int s=0;
+    if (koneenpaiva==paiva){s++;} //jos käyttäjän antama päivä on sama kuin koneenpäivä
+    if (kuukausi==koneenkuukausi){s++;}//jos käyttäjän antama kuukausi on sama kuin koneenkuukausi
+    if (vuosi==koneenvuosi){s++;} //jos käyttäjän antama vuosi on sama kuin koneenvuosi
+    if (kirjain==koneenkirjain){s++;}//jos käyttäjän antama kirjain on sama kuin koneenkirjain
+    
+    if (s==0){String teksti = "Et saanut yhteensattumaa!"; return teksti;} 
+    else {String teksti = "Sait "+s+ " yhteensattumaa!"; return teksti;}
+    }
+    
 
 //muunnetaan object -> double
 public double DoubleConvert(Object panos){
@@ -87,4 +102,5 @@ public double DoubleConvert(Object panos){
         else {p = 2.0;}
         return p;
 }
+   
 }
