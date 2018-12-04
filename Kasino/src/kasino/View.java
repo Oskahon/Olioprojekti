@@ -258,7 +258,8 @@ public class View {
          ImageIcon icon = new ImageIcon("qst.png");
          
          Object input4 =  JOptionPane.showInputDialog(null, "Aseta panos", "BLIZZARD GAMES INC." , JOptionPane.QUESTION_MESSAGE, icon,controller.panos(),"0,5");
-         
+         if (input4==null){return;}//jos käyttäja painaa "cancel"
+        
          antamapanos = controller.DoubleConvert(input4);
         
          antamapaiva = 
