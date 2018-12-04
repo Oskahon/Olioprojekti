@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package kasino;
 
 import java.util.Arrays;
@@ -10,10 +6,7 @@ import java.util.stream.IntStream;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author lastl
- */
+
 public class View {
 
     private Controller controller;
@@ -21,39 +14,27 @@ public class View {
     public void menuView() {
 
         // Päävalikko
-        // JCheckBox checkbox = new JCheckBox("Tuplaus");
         ImageIcon icon = new ImageIcon("bliz.png"); // Kuva
 
         Object[] options = {"Tietovisa", "Lotto Simulaattori", "Synttärit", "Arvaa Luku", "Tietoa tekijöistä", "Sulje"};
         int x = JOptionPane.showOptionDialog(null, "\n Valitse peli tai toiminto\n\n",
                 "BLIZZARD GAMES INC.",
-                // JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, icon, options, options[0]);
 
-        //   JOptionPane.showMessageDialog(null, "Valitsit " + options[x] + "!");
         switch (x) {
             case 0:
-                // Käynnistä Peli 1
-                System.out.println("Peli 1 käynnistyy..");
                 controller.peli1();
                 break;
             case 1:
-                // Käynnistä Peli 2
-                System.out.println("Lotto Simulaattori käynnistyy..");
                 lottoView();
                 break;
             case 2:
-                // Käynnistä Peli 3
-                System.out.println("Peli 2 käynnistyy..");
                 controller.syntarit();
                 break;
             case 3:
-                // Käynnistä 4
-                System.out.println("Peli 4 käynistyy..");
                 controller.arvaaluku();
                 break;
             case 4:
-                // Käynnistä 5
                 System.out.println("Tietoa tekijöistä");
                 JOptionPane.showMessageDialog(null, "Tietovisa\nTekijä: Ninja Luotonen\n\n"
                         + "Lotto Simulaattori\n Tekijä: Oskari Ahonen\n\n"
@@ -61,8 +42,6 @@ public class View {
                         + "Arvaa Luku\nTekijä: Artem Kupri");
                 break;
             case 5:
-                // Käynnistä 6
-                System.out.println("6, lopetus");
                 JOptionPane.showMessageDialog(null, "Tervetuloa uudelleen!");
                 System.exit(0);
                 break;
@@ -104,7 +83,7 @@ public class View {
                 JOptionPane.showMessageDialog(null, "Suljit ohjelman");
                 System.exit(0);
         }
-        lottoView(); // Jos napilla ei ole vielä toimintoa, mennään takaisin menuun
+        lottoView();
     }
 
     // Pyytää loton numerot
