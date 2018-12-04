@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package kasino;
 
 import java.util.Arrays;
@@ -11,7 +6,7 @@ import java.util.stream.IntStream;
 
 /**
  *
- * @author ahone
+ * @author oskahon
  */
 public class Lotto {
 
@@ -19,8 +14,90 @@ public class Lotto {
 
     private int[] arvotutnumerot = new int[7];
 
-    // Arpoo numeroita niin kauan, että saadaan 7.oikein. Tämän jälkeen laskee lopullisen saldon.
+    // Tavallinen lotto
     public String lottoStart(int[] numerot) {
+
+        int[] valitutnumerot = numerot;
+        String valnumerot = "", arvnumerot = "", tulos;
+        int oikeatnumerot = 0, voittosumma = 0;
+
+        // Arpoo numerot
+        for (int i = 0; i < 7; i++) {
+
+            int luku = (int) rand.nextInt(40) + 1;
+
+            boolean sisaltaa = IntStream.of(arvotutnumerot).anyMatch(x -> x == luku);
+
+            if (sisaltaa) {
+                i--;
+            } else {
+                arvotutnumerot[i] = luku;
+            }
+
+        }
+        Arrays.sort(arvotutnumerot);
+
+        // Vertaa arvottuja numeroita valittuihin numeroihin
+        for (int i = 0; i < arvotutnumerot.length; i++) {
+            int luku = arvotutnumerot[i];
+            boolean sisaltaa = IntStream.of(valitutnumerot).anyMatch(x -> x == luku);
+            if (sisaltaa) {
+                oikeatnumerot++;
+            }
+        }
+
+        // Muutetaan valitutnumerot taulukko String muotoon
+        for (int i = 0; i < valitutnumerot.length; i++) {
+            if (i < 6) {
+                valnumerot += valitutnumerot[i] + ", ";
+                arvnumerot += arvotutnumerot[i] + ", ";
+            } else {
+                valnumerot += valitutnumerot[i];
+                arvnumerot += arvotutnumerot[i];
+            }
+        }
+
+        // Voitonjako
+        switch (oikeatnumerot) {
+            case 3:
+                voittosumma = 2;
+                break;
+            case 4:
+                voittosumma = 10;
+                break;
+            case 5:
+                voittosumma = 50;
+                break;
+            case 6:
+                voittosumma = 10000;
+                break;
+            case 7:
+                voittosumma = 2000000;
+                break;
+            default:
+                break;
+        }
+
+        // Tulosviesti
+        if (oikeatnumerot < 3) {
+            tulos = "Valitut numerot: \n" + valnumerot
+                    + "\n\nArvotut numerot: \n" + arvnumerot
+                    + "\n\nSait " + oikeatnumerot + " oikein! "
+                    + "\n\n Valitettavasti et voittanut mitään.";
+        } else {
+            tulos = "Valitut numerot: \n" + valnumerot
+                    + "\n\nArvotut numerot: \n" + arvnumerot
+                    + "\n\nSait " + oikeatnumerot + " oikein! "
+                    + "\n\nVoitit " + voittosumma + " euroa!";
+        }
+
+        return tulos;
+
+    }
+
+    // 7 Oikein peli
+    // Arpoo numeroita niin kauan, että saadaan 7.oikein. Tämän jälkeen laskee lopullisen saldon.
+    public String lotto7Start(int[] numerot) {
 
         int[] valitutnumerot = numerot;
         String valnumerot = "";
@@ -32,7 +109,7 @@ public class Lotto {
             // Nollaa arvottujen numeroiden taulukon, sekä oikeiden numeroiden määrän   
             arvotutnumerot = new int[7];
             oikeatnumerot = 0;
-            
+
             saldo--;
             kierrokset++;
 
@@ -61,7 +138,6 @@ public class Lotto {
                 }
             }
 
-            // Laskee eri voittojen määrän
             switch (oikeatnumerot) {
                 case 4:
                     oikein4++;
@@ -92,7 +168,7 @@ public class Lotto {
         oikein4 *= 10;
         oikein5 *= 50;
         oikein6 *= 10000;
-        saldo = saldo + oikein3 + oikein4 + oikein5 + oikein6 + 1500000;
+        saldo = saldo + oikein3 + oikein4 + oikein5 + oikein6 + 2000000;
 
         // Tulosviesti
         String tulos = "Valitut numerot: \n" + valnumerot

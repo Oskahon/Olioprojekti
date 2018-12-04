@@ -1,19 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package kasino;
 
 import java.util.Arrays;
 import java.util.stream.IntStream;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-/**
- *
- * @author lastl
- */
+
 public class View {
+
     private Controller controller;
 
     public void menuView() {
@@ -215,6 +208,7 @@ public class View {
         int kayttajanSyotto = 0;
         boolean validi = false;
         // pyydetään käyttäjältä lisätietoa ennen kontrollerin kutsumista
+
         while (!validi) {
         kayttajanSyottoStr
                 = JOptionPane.showInputDialog(null, "Anna luku [1-10]");
@@ -230,6 +224,8 @@ public class View {
         // käyttäjän luku
         // kontrolleri vaatii parametrina int, muutetaan se 'lennossa'.
         controller.luvunTalletus1(kayttajanSyotto);
+
+        
         // koneen luku
         controller.luvunTalletus2((int) (Math.random() * 10 + 1));
 
@@ -299,6 +295,5 @@ public class View {
         }
 
     }
-    
-   
+
 }
