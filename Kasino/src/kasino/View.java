@@ -19,49 +19,34 @@ public class View {
     public void menuView() {
 
         // Päävalikko
-        // JCheckBox checkbox = new JCheckBox("Tuplaus");
         ImageIcon icon = new ImageIcon("bliz.png"); // Kuva
 
-
-        Object[] options = {"Tietovisa", "Lotto Simulaattori", "Synttärit", "Peli 4", "Tietoa tekijöistä", "Sulje"};
+        Object[] options = {"Tietovisa", "Lotto", "Synttärit", "Arvaa Luku", "Tietoa tekijöistä", "Sulje"};
         int x = JOptionPane.showOptionDialog(null, "\n Valitse peli tai toiminto\n\n",
                 "BLIZZARD GAMES INC.",
-                // JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, icon, options, options[0]);
 
-        //   JOptionPane.showMessageDialog(null, "Valitsit " + options[x] + "!");
         switch (x) {
             case 0:
-                // Käynnistä Peli 1
-                System.out.println("Peli 1 käynnistyy..");
                 controller.peli1();
                 break;
             case 1:
-                // Käynnistä Peli 2
-                System.out.println("Lotto Simulaattori käynnistyy..");
-                controller.lotto();
+                lottoView();
                 break;
             case 2:
-                // Käynnistä Peli 3
-                System.out.println("Peli 2 käynnistyy..");
                 controller.syntarit();
                 break;
             case 3:
-                // Käynnistä 4
-                System.out.println("Peli 4 käynistyy..");
                 controller.arvaaluku();
                 break;
             case 4:
-                // Käynnistä 5
                 System.out.println("Tietoa tekijöistä");
                 JOptionPane.showMessageDialog(null, "Tietovisa\nTekijä: Ninja Luotonen\n\n"
-                        + "Lotto Simulaattori\n Tekijä: Oskari Ahonen\n\n"
+                        + "Lotto\n Tekijä: Oskari Ahonen\n\n"
                         + "Synttärit\nTekijä: Ekaterina Seikkinen \n\n"
                         + "Arvaa Luku\nTekijä: Artem Kupri");
                 break;
             case 5:
-                // Käynnistä 6
-                System.out.println("6, lopetus");
                 JOptionPane.showMessageDialog(null, "Tervetuloa uudelleen!");
                 System.exit(0);
                 break;
@@ -81,69 +66,101 @@ public class View {
     public void naytaViesti(String viesti) {
         JOptionPane.showMessageDialog(null, viesti);
     }
-    
+
+    public void lottoView() {
+
+        // Lotto valikko
+        Object[] options = {"Lotto", "7. Oikein", "Lopetus"};
+        int x = JOptionPane.showOptionDialog(null, "Valitse peli tai toiminto", "Valitse peli",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+
+        switch (x) {
+            case 0:
+                controller.lotto();
+                break;
+            case 1:
+                controller.lotto7();
+                break;
+            case 2:
+                menuView();
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Suljit ohjelman");
+                System.exit(0);
+        }
+        lottoView();
+    }
+
     // Pyytää loton numerot
-    
     public int[] annaNumerot() {
-        
+
         int[] valitutnumerot = new int[7];
-        
+
         for (int i = 0; i < 7; i++) {
 
-            boolean sisaltaa, validi = false;
-            int luku = 0;
+            boolean validi = false;
 
             // Varmistetaan, että annettu arvo on kokonaisluku
             while (!validi) {
+
                 String numero = JOptionPane.showInputDialog(null, "Anna " + (i + 1) + ".numero:");
+
                 try {
-                    luku = Integer.parseInt(numero);
-                    validi = true;
+                    if (numero == null) {
+                        // Jos painaa cancelia tai ruksia palataan loton alkunäkymään
+                        lottoView();
+                    } else {
+                        // luku on kelvollinen
+                        int luku = Integer.parseInt(numero);
+                        validi = true;
+
+                        // tarkistetaan, löytyykö luku jo syötetyistä numeroista
+                        boolean sisaltaa = IntStream.of(valitutnumerot).anyMatch(x -> x == luku);
+
+                        if (luku <= 0 || luku > 40) {
+                            i--;
+                            JOptionPane.showMessageDialog(null, "Antamasi luku ei ollut väliltä 1 - 40. Anna uusi luku.");
+                        } else if (sisaltaa) {
+                            i--;
+                            JOptionPane.showMessageDialog(null, "Antamasi numero on jo annettu kertaalleen. Anna uusi luku.");
+                        } else {
+                            valitutnumerot[i] = luku;
+                        }
+                    }
                 } catch (Exception e) {
+                    // Jos syötetty arvo ei ole kokonaisluku
                     JOptionPane.showMessageDialog(null, "Et antanut kokonaislukua...");
                 }
             }
-            
-            // sisaltaa tarkastus ei toimi jos etsittävä luku on alustettu
-            int arvo;
-            arvo = luku;
-
-            sisaltaa = IntStream.of(valitutnumerot).anyMatch(x -> x == arvo);
-
-            if (arvo <= 0 || arvo > 40) {
-                i--;
-                JOptionPane.showMessageDialog(null, "Antamasi luku ei ollut väliltä 1 - 40. Anna uusi luku.");
-            } else if (sisaltaa) {
-                i--;
-                JOptionPane.showMessageDialog(null, "Antamasi numero on jo annettu kertaalleen. Anna uusi luku.");
-            } else {
-                valitutnumerot[i] = arvo;
-            }
-
         }
+
         Arrays.sort(valitutnumerot);
-        
+
         return valitutnumerot;
     }
-    
-    
-    
-    
+
     // ArvaaLuku
     public void aloitusNaytto() {
         String valintaStr;      // käyttäjän valinta merkkijonona
-        int valinta;            // valinta numerona
+        int valinta = 0;            // valinta numerona
+        boolean validi = false;
 
         // näytetään käyttäjälle päävalikko
-        valintaStr = JOptionPane.showInputDialog(null,
-                "Valitse toiminto (1-3) seuraavista: \n"
-                + "1: Jos et ole laiska \n"
-                + "2: Jos olet laiska \n"
-                + "3: Lopeta");
+        while (!validi) {
+            valintaStr = JOptionPane.showInputDialog(null,
+                    "Valitse toiminto (1-3) seuraavista: \n"
+                    + "1: Jos et ole laiska \n"
+                    + "2: Jos olet laiska \n"
+                    + "3: Lopeta");
 
-        // muutetaan käyttäjän vastaus numeroksi
-        valinta = Integer.parseInt(valintaStr);
-        
+            // muutetaan käyttäjän vastaus numeroksi
+            try {
+                valinta = Integer.parseInt(valintaStr);
+                validi = true;
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Lopeta peli syöttämällä luku 3.");
+            }
+        }
 
         // siirrytään käyttäjän haluamaan toimintoon
         switch (valinta) {
@@ -154,22 +171,18 @@ public class View {
                 laiska();
                 break;
             case 3:
-                lopetus();
                 break;
             default:
                 // näytetään valikko uudestaan, jos ei kunnollinen valinta
                 aloitusNaytto();
-                
+
         }
 
     }
-    
-    
-    
-    
+
     // jos käyttäjä on laiska, luku arvataan hänen puolestaan
     public void laiska() {
-        
+
         // käyttäjän luku
         controller.luvunTalletus1((int) (Math.random() * 10 + 1));
         // koneen luku
@@ -178,37 +191,48 @@ public class View {
         // saadaan takaisin haluttu vastaus
         int sinunLuku = controller.sinunLuku();
         int koneenLuku = controller.koneenLuku();
-        
+
         // näytetään arvotut luvut ja samalla 
         // kerrotaan onko pelaaja voittanut  tai hävinnyt
-        if(sinunLuku == koneenLuku){
+        if (sinunLuku == koneenLuku) {
             JOptionPane.showMessageDialog(null, "Sinun luku on " + sinunLuku
-            + "\nKoneen luku on " + koneenLuku + "\nVoitit!");
-        
+                    + "\nKoneen luku on " + koneenLuku + "\nVoitit!");
+
             // siirrytään takaisin aloitusnäyttöön
             aloitusNaytto();
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "Sinun luku on " + sinunLuku
-            + "\nKoneen luku on " + koneenLuku + "\nHävisit!");
-        
+                    + "\nKoneen luku on " + koneenLuku + "\nHävisit!");
+
             // siirrytään takaisin aloitusnäyttöön
             aloitusNaytto();
         }
     }
-    
-    
+
     // käyttäjä syöttää luvunsa itse
     public void eiLaiska() {
+        String kayttajanSyottoStr;
+        int kayttajanSyotto = 0;
+        boolean validi = false;
         // pyydetään käyttäjältä lisätietoa ennen kontrollerin kutsumista
-        String kayttajanSyotto =
-                JOptionPane.showInputDialog(null, "Anna luku [1-10]: ");
+        while (!validi) {
+        kayttajanSyottoStr
+                = JOptionPane.showInputDialog(null, "Anna luku [1-10]");
+        
+        
+        try {
+        kayttajanSyotto = Integer.parseInt(kayttajanSyottoStr);
+        validi = true;
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Vain kokonaisluku kelpaa");
+            }
+        }
         // käyttäjän luku
         // kontrolleri vaatii parametrina int, muutetaan se 'lennossa'.
-        controller.luvunTalletus1( Integer.parseInt(kayttajanSyotto) );
+        controller.luvunTalletus1(kayttajanSyotto);
         // koneen luku
-        controller.luvunTalletus2((int) (Math.random()* 10 + 1));
-        
+        controller.luvunTalletus2((int) (Math.random() * 10 + 1));
+
         // pyydetään kontrolleria hoitamaan toiminto, 
         // saadaan takaisin haluttu vastaus
         int sinunLuku = controller.sinunLuku();
@@ -216,23 +240,64 @@ public class View {
 
         // näytetään pelaajan ja arvotu luvut ja samalla 
         // kerrotaan onko pelaaja voittanut tai hävinnyt         
-        if(sinunLuku == koneenLuku){
+        if (sinunLuku == koneenLuku) {
             JOptionPane.showMessageDialog(null, "Sinun luku on " + sinunLuku
-            + "\nKoneen luku on " + koneenLuku + "\nVoitit!");
+                    + "\nKoneen luku on " + koneenLuku + "\nVoitit!");
             // siirrytään takaisin aloitusnäyttöön
             aloitusNaytto();
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "Sinun luku on " + sinunLuku
-            + "\nKoneen luku on " + koneenLuku + "\nHävisit!");
+                    + "\nKoneen luku on " + koneenLuku + "\nHävisit!");
             // siirrytään takaisin aloitusnäyttöön
             aloitusNaytto();
         }
     }
-    
-    // keskeytytään peli
-    public void lopetus() {
-        System.exit(0);
+
+    public void syntarit() {
+        //esitellään muuttajat
+        String koneenpaiva, koneenkuukausi, koneenvuosi, koneenkirjain;
+        String antamapaiva, antamakuukausi, antamavuosi, antamakirjain;
+        double antamapanos;
+
+        ImageIcon icon = new ImageIcon("qst.png");
+
+        Object input4 = JOptionPane.showInputDialog(null, "Aseta panos", "BLIZZARD GAMES INC.", JOptionPane.QUESTION_MESSAGE, icon, controller.panos(), "0,5");
+
+        antamapanos = controller.DoubleConvert(input4);
+
+        antamapaiva = (String) JOptionPane.showInputDialog(null, "Valitse syntymäpäiväsi", "BLIZZARD GAMES INC.", JOptionPane.QUESTION_MESSAGE, icon, controller.paiva(), "1");
+        antamakuukausi = (String) JOptionPane.showInputDialog(null, "Valitse syntymäkuukausisi", "BLIZZARD GAMES INC.", JOptionPane.QUESTION_MESSAGE, icon, controller.kuukausi(), "tammi");
+        antamavuosi = (String) JOptionPane.showInputDialog(null, "Valitse syntymävuosisi", "BLIZZARD GAMES INC.", JOptionPane.QUESTION_MESSAGE, icon, controller.vuosi(), "00");
+        antamakirjain = (String) JOptionPane.showInputDialog(null, "Valitse mikä tahansa kirjain", "BLIZZARD GAMES INC.", JOptionPane.QUESTION_MESSAGE, icon, controller.kirjain(), "A");
+
+        koneenpaiva = controller.getKoneenpaiva();
+        koneenkuukausi = controller.getKoneenkuukaisi();
+        koneenvuosi = controller.getKoneenvuosi();
+        koneenkirjain = controller.getKoneenkirjain();
+
+        JOptionPane.showMessageDialog(null, "Valmis rivi: " + antamapaiva + " " + antamakuukausi + " " + antamavuosi + " " + antamakirjain + "\nKoneen rivi: " + koneenpaiva + " " + koneenkuukausi + " " + koneenvuosi + " " + koneenkirjain, "BLIZZARD GAMES INC.", 0, icon);
+
+        if (antamapaiva.equals(koneenpaiva) && antamakuukausi.equals(koneenkuukausi) && antamavuosi.equals(koneenvuosi) && antamakirjain.equals(koneenkirjain)) {
+            JOptionPane.showMessageDialog(null, "Voittosi on " + antamapanos * 150000 + " euroa");
+        } //troller.talletus(antamapanos*150000);}
+        else if (antamapaiva.equals(koneenpaiva) && antamakuukausi.equals(koneenkuukausi) && antamavuosi.equals(koneenvuosi)) {
+            JOptionPane.showMessageDialog(null, "Voittosi on " + antamapanos * 5000 + " euroa");
+        } else if (antamakuukausi.equals(koneenkuukausi) && antamavuosi.equals(koneenvuosi)) {
+            JOptionPane.showMessageDialog(null, "Voittosi on " + antamapanos * 500 + " euroa");
+        } else if (antamapaiva.equals(koneenpaiva) && antamakuukausi.equals(koneenkuukausi) && antamakirjain.equals(koneenkirjain)) {
+            JOptionPane.showMessageDialog(null, "Voittosi on " + antamapanos * 250 + " euroa");
+        } else if (antamakuukausi.equals(koneenkuukausi) && antamavuosi.equals(koneenvuosi)) {
+            JOptionPane.showMessageDialog(null, "Voittosi on " + antamapanos * 50 + " euroa");
+        } else if (antamapaiva.equals(koneenpaiva) && antamakuukausi.equals(koneenkuukausi)) {
+            JOptionPane.showMessageDialog(null, "Voittosi on " + antamapanos * 15 + " euroa");
+        } else if (antamakuukausi.equals(koneenkuukausi) && antamakirjain.equals(koneenkirjain)) {
+            JOptionPane.showMessageDialog(null, "Voittosi on " + antamapanos * 10 + " euroa");
+        } else if (antamakuukausi.equals(koneenkuukausi)) {
+            JOptionPane.showMessageDialog(null, "Voittosi on " + antamapanos * 2 + " euroa");
+        } else {
+            naytaViesti("Valitettavasti et voittanut! ");
+        }
+
     }
     
    
