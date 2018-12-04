@@ -64,7 +64,7 @@ public class View {
 
         // Lotto valikko
         Object[] options = {"Lotto", "7. Oikein", "Lopetus"};
-        int x = JOptionPane.showOptionDialog(null, "Valitse peli tai palaa alkunäkymään.", "Valitse peli",
+        int x = JOptionPane.showOptionDialog(null, "Valitse peli tai palaa alkunäkymään", "Valitse peli",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 
         switch (x) {
@@ -251,49 +251,71 @@ public class View {
 
     public void syntarit() {
         //esitellään muuttajat
-        String koneenpaiva, koneenkuukausi, koneenvuosi, koneenkirjain;
-        String antamapaiva, antamakuukausi, antamavuosi, antamakirjain;
-        double antamapanos;
-
-        ImageIcon icon = new ImageIcon("qst.png");
-
-        Object input4 = JOptionPane.showInputDialog(null, "Aseta panos", "BLIZZARD GAMES INC.", JOptionPane.QUESTION_MESSAGE, icon, controller.panos(), "0,5");
-
-        antamapanos = controller.DoubleConvert(input4);
-
-        antamapaiva = (String) JOptionPane.showInputDialog(null, "Valitse syntymäpäiväsi", "BLIZZARD GAMES INC.", JOptionPane.QUESTION_MESSAGE, icon, controller.paiva(), "1");
-        antamakuukausi = (String) JOptionPane.showInputDialog(null, "Valitse syntymäkuukausisi", "BLIZZARD GAMES INC.", JOptionPane.QUESTION_MESSAGE, icon, controller.kuukausi(), "tammi");
-        antamavuosi = (String) JOptionPane.showInputDialog(null, "Valitse syntymävuosisi", "BLIZZARD GAMES INC.", JOptionPane.QUESTION_MESSAGE, icon, controller.vuosi(), "00");
-        antamakirjain = (String) JOptionPane.showInputDialog(null, "Valitse mikä tahansa kirjain", "BLIZZARD GAMES INC.", JOptionPane.QUESTION_MESSAGE, icon, controller.kirjain(), "A");
-
-        koneenpaiva = controller.getKoneenpaiva();
-        koneenkuukausi = controller.getKoneenkuukaisi();
-        koneenvuosi = controller.getKoneenvuosi();
-        koneenkirjain = controller.getKoneenkirjain();
-
-        JOptionPane.showMessageDialog(null, "Valmis rivi: " + antamapaiva + " " + antamakuukausi + " " + antamavuosi + " " + antamakirjain + "\nKoneen rivi: " + koneenpaiva + " " + koneenkuukausi + " " + koneenvuosi + " " + koneenkirjain, "BLIZZARD GAMES INC.", 0, icon);
-
-        if (antamapaiva.equals(koneenpaiva) && antamakuukausi.equals(koneenkuukausi) && antamavuosi.equals(koneenvuosi) && antamakirjain.equals(koneenkirjain)) {
-            JOptionPane.showMessageDialog(null, "Voittosi on " + antamapanos * 150000 + " euroa");
-        } //troller.talletus(antamapanos*150000);}
-        else if (antamapaiva.equals(koneenpaiva) && antamakuukausi.equals(koneenkuukausi) && antamavuosi.equals(koneenvuosi)) {
-            JOptionPane.showMessageDialog(null, "Voittosi on " + antamapanos * 5000 + " euroa");
-        } else if (antamakuukausi.equals(koneenkuukausi) && antamavuosi.equals(koneenvuosi)) {
-            JOptionPane.showMessageDialog(null, "Voittosi on " + antamapanos * 500 + " euroa");
-        } else if (antamapaiva.equals(koneenpaiva) && antamakuukausi.equals(koneenkuukausi) && antamakirjain.equals(koneenkirjain)) {
-            JOptionPane.showMessageDialog(null, "Voittosi on " + antamapanos * 250 + " euroa");
-        } else if (antamakuukausi.equals(koneenkuukausi) && antamavuosi.equals(koneenvuosi)) {
-            JOptionPane.showMessageDialog(null, "Voittosi on " + antamapanos * 50 + " euroa");
-        } else if (antamapaiva.equals(koneenpaiva) && antamakuukausi.equals(koneenkuukausi)) {
-            JOptionPane.showMessageDialog(null, "Voittosi on " + antamapanos * 15 + " euroa");
-        } else if (antamakuukausi.equals(koneenkuukausi) && antamakirjain.equals(koneenkirjain)) {
-            JOptionPane.showMessageDialog(null, "Voittosi on " + antamapanos * 10 + " euroa");
-        } else if (antamakuukausi.equals(koneenkuukausi)) {
-            JOptionPane.showMessageDialog(null, "Voittosi on " + antamapanos * 2 + " euroa");
-        } else {
-            naytaViesti("Valitettavasti et voittanut! ");
+        String koneenpaiva,koneenkuukausi, koneenvuosi,koneenkirjain;
+         String antamapaiva,antamakuukausi, antamavuosi, antamakirjain;
+         double antamapanos;
+         
+         ImageIcon icon = new ImageIcon("qst.png");
+         
+         Object input4 =  JOptionPane.showInputDialog(null, "Aseta panos", "BLIZZARD GAMES INC." , JOptionPane.QUESTION_MESSAGE, icon,controller.panos(),"0,5");
+         if (input4==null){return;}//jos käyttäja painaa "cancel"
+        
+         antamapanos = controller.DoubleConvert(input4);
+        
+         antamapaiva = 
+                 (String) JOptionPane.showInputDialog(null, "Valitse syntymäpäiväsi", "BLIZZARD GAMES INC.", JOptionPane.QUESTION_MESSAGE, icon, controller.paiva(),"1");
+         if (antamapaiva==null){return;}//jos käyttäja painaa "cancel"
+         antamakuukausi = 
+                 (String) JOptionPane.showInputDialog(null, "Valitse syntymäkuukausisi", "BLIZZARD GAMES INC.", JOptionPane.QUESTION_MESSAGE,icon, controller.kuukausi(),"tammi");
+         if (antamakuukausi==null){return;}//jos käyttäja painaa "cancel"
+         antamavuosi = 
+                 (String) JOptionPane.showInputDialog(null, "Valitse syntymävuosisi", "BLIZZARD GAMES INC." , JOptionPane.QUESTION_MESSAGE, icon,controller.vuosi(),"00");
+         if (antamavuosi==null){return;}//jos käyttäja painaa "cancel"
+         antamakirjain = 
+                 (String)JOptionPane.showInputDialog(null, "Valitse mikä tahansa kirjain", "BLIZZARD GAMES INC." , JOptionPane.QUESTION_MESSAGE, icon, controller.kirjain(),"A");
+         if (antamakirjain==null){return;}//jos käyttäja painaa "cancel"
+         
+         koneenpaiva = controller.getKoneenpaiva();
+         koneenkuukausi = controller.getKoneenkuukaisi();
+         koneenvuosi = controller.getKoneenvuosi();
+         koneenkirjain =controller.getKoneenkirjain();
+        
+         JOptionPane.showMessageDialog(null,"Valmis rivi: "+antamapaiva+" "+antamakuukausi+" "+antamavuosi+" "+antamakirjain+ "\nKoneen rivi: " +koneenpaiva+" "+koneenkuukausi+" "+koneenvuosi+" "+koneenkirjain, "BLIZZARD GAMES INC.", 0, icon);
+         
+         //jos kaikki oikein (päivä,kuukausi,vuosi,kirjain) -> tosi pieni todennäköisyys 
+         if (antamapaiva.equals(koneenpaiva)&&antamakuukausi.equals(koneenkuukausi)&&antamavuosi.equals(koneenvuosi)&&antamakirjain.equals(koneenkirjain)){
+         naytaViesti("Voittosi on " + antamapanos*150000 + " euroa");
+         }
+         // jos päivä, vuosi ja kuukausi oikein
+         else if(antamapaiva.equals(koneenpaiva) && antamakuukausi.equals(koneenkuukausi) && antamavuosi.equals(koneenvuosi)){
+         naytaViesti("Voittosi on " +antamapanos*5000 + " euroa");
         }
-
-    }
-
+         //jos kuukausi ja vuosi oikein
+         else if(antamakuukausi.equals(koneenkuukausi) && antamavuosi.equals(koneenvuosi)){
+         naytaViesti("Voittosi on " + antamapanos*500 + " euroa");
+         }
+         // jos päivä, kuukausi ja kirjain oikein
+         else if(antamapaiva.equals(koneenpaiva) && antamakuukausi.equals(koneenkuukausi)&& antamakirjain.equals(koneenkirjain)){
+         naytaViesti("Voittosi on " + antamapanos*250 + " euroa");
+         }
+         //jos kuukausi ja vuosi oikein
+         else if(antamakuukausi.equals(koneenkuukausi) && antamavuosi.equals(koneenvuosi)){
+         naytaViesti("Voittosi on " + antamapanos*50 + " euroa");
+         }
+        //jos kuukausi ja päivä oikein
+         else if (antamapaiva.equals(koneenpaiva) && antamakuukausi.equals(koneenkuukausi)){
+         naytaViesti("Voittosi on " + antamapanos*15 + " euroa");
+       }
+         //jos kuukausi ja kirjain oikein
+         else if(antamakuukausi.equals(koneenkuukausi) && antamakirjain.equals(koneenkirjain)){
+         naytaViesti("Voittosi on " + antamapanos*10 + " euroa");
+         }
+         //jos kuukausi on oikein
+         else if(antamakuukausi.equals(koneenkuukausi)){
+         naytaViesti("Voittosi on " + antamapanos*2 + " euroa");
+         }
+         // jos antama rivi ja koneen rivi erilaisia
+         else  {naytaViesti("Valitettavasti et voittanut! ");}
+      
+         }
 }
