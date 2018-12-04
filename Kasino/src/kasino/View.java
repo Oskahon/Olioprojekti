@@ -251,42 +251,63 @@ public class View {
     public void syntarit() {
         //esitellään muuttajat
         String koneenpaiva,koneenkuukausi, koneenvuosi,koneenkirjain;
-         String antamapaiva,antamakuukausi, antamavuosi, antamakirjain;
-         double antamapanos;
+        String antamapaiva,antamakuukausi, antamavuosi, antamakirjain;
+        double antamapanos;
          
          ImageIcon icon = new ImageIcon("qst.png");
          
-         Object input4 =  JOptionPane.showInputDialog(null, "Aseta panos", "BLIZZARD GAMES INC." , JOptionPane.QUESTION_MESSAGE, icon,controller.panos(),"0,5");
+         //käyttäjän valitsema panos (3 vaihtoehtoja)
+         Object input4 =  JOptionPane.showInputDialog(null, "Aseta panos", "BLIZZARD GAMES INC." , 
+                 JOptionPane.QUESTION_MESSAGE, icon,controller.panos(),"0,5");
          if (input4==null){return;}//jos käyttäja painaa "cancel"
-        
+         
+         //muunnetaan käyttäjän valitsema arvo -> double
          antamapanos = controller.DoubleConvert(input4);
-        
+         
+         //käyttäjän valitsema syntymäpäivä
          antamapaiva = 
-                 (String) JOptionPane.showInputDialog(null, "Valitse syntymäpäiväsi", "BLIZZARD GAMES INC.", JOptionPane.QUESTION_MESSAGE, icon, controller.paiva(),"1");
+                 (String) JOptionPane.showInputDialog(null, "Valitse syntymäpäiväsi", "BLIZZARD GAMES INC.", 
+                         JOptionPane.QUESTION_MESSAGE, icon, controller.paiva(),"1");
          if (antamapaiva==null){return;}//jos käyttäja painaa "cancel"
+         
+         //käyttäjän valitsema syntymäkuukausi
          antamakuukausi = 
-                 (String) JOptionPane.showInputDialog(null, "Valitse syntymäkuukausisi", "BLIZZARD GAMES INC.", JOptionPane.QUESTION_MESSAGE,icon, controller.kuukausi(),"tammi");
+                 (String) JOptionPane.showInputDialog(null, "Valitse syntymäkuukausisi", "BLIZZARD GAMES INC.", 
+                         JOptionPane.QUESTION_MESSAGE,icon, controller.kuukausi(),"tammi");
          if (antamakuukausi==null){return;}//jos käyttäja painaa "cancel"
+         
+         //käyttäjän valitsema syntymävuosi
          antamavuosi = 
-                 (String) JOptionPane.showInputDialog(null, "Valitse syntymävuosisi", "BLIZZARD GAMES INC." , JOptionPane.QUESTION_MESSAGE, icon,controller.vuosi(),"00");
+                 (String) JOptionPane.showInputDialog(null, "Valitse syntymävuosisi", "BLIZZARD GAMES INC." ,
+                         JOptionPane.QUESTION_MESSAGE, icon,controller.vuosi(),"00");
          if (antamavuosi==null){return;}//jos käyttäja painaa "cancel"
+         
+         //käyttäjän valitsema kirjain
          antamakirjain = 
-                 (String)JOptionPane.showInputDialog(null, "Valitse mikä tahansa kirjain", "BLIZZARD GAMES INC." , JOptionPane.QUESTION_MESSAGE, icon, controller.kirjain(),"A");
+                 (String)JOptionPane.showInputDialog(null, "Valitse mikä tahansa kirjain", "BLIZZARD GAMES INC." ,
+                         JOptionPane.QUESTION_MESSAGE, icon, controller.kirjain(),"A");
          if (antamakirjain==null){return;}//jos käyttäja painaa "cancel"
          
+         //koneen satunnaisarvot
          koneenpaiva = controller.getKoneenpaiva();
          koneenkuukausi = controller.getKoneenkuukaisi();
          koneenvuosi = controller.getKoneenvuosi();
          koneenkirjain =controller.getKoneenkirjain();
-        
-         JOptionPane.showMessageDialog(null,"Valmis rivi: "+antamapaiva+" "+antamakuukausi+" "+antamavuosi+" "+antamakirjain+ "\nKoneen rivi: " +koneenpaiva+" "+koneenkuukausi+" "+koneenvuosi+" "+koneenkirjain, "BLIZZARD GAMES INC.", 0, icon);
+         
+        //tulostetaan valmis rivi ja koneen rivi ja sattuman määrä
+         JOptionPane.showMessageDialog(null,"Valmis rivi: "+antamapaiva+" "+antamakuukausi+" "+antamavuosi+" "+antamakirjain+ 
+                 "\nKoneen rivi: " +koneenpaiva+" "+koneenkuukausi+" "+koneenvuosi+" "+koneenkirjain+
+                 "\n"+controller.sattumanmaara(antamapaiva, antamakuukausi, antamavuosi, antamakirjain, koneenpaiva, koneenkuukausi, koneenvuosi, koneenkirjain)
+                 , "BLIZZARD GAMES INC.", 0, icon);
          
          //jos kaikki oikein (päivä,kuukausi,vuosi,kirjain) -> tosi pieni todennäköisyys 
-         if (antamapaiva.equals(koneenpaiva)&&antamakuukausi.equals(koneenkuukausi)&&antamavuosi.equals(koneenvuosi)&&antamakirjain.equals(koneenkirjain)){
+         if (antamapaiva.equals(koneenpaiva)&&antamakuukausi.equals(koneenkuukausi)&&antamavuosi.equals(koneenvuosi)
+                 &&antamakirjain.equals(koneenkirjain)){
          naytaViesti("Voittosi on " + antamapanos*150000 + " euroa");
          }
          // jos päivä, vuosi ja kuukausi oikein
-         else if(antamapaiva.equals(koneenpaiva) && antamakuukausi.equals(koneenkuukausi) && antamavuosi.equals(koneenvuosi)){
+         else if(antamapaiva.equals(koneenpaiva) && antamakuukausi.equals(koneenkuukausi) 
+                 && antamavuosi.equals(koneenvuosi)){
          naytaViesti("Voittosi on " +antamapanos*5000 + " euroa");
         }
          //jos kuukausi ja vuosi oikein
@@ -294,7 +315,8 @@ public class View {
          naytaViesti("Voittosi on " + antamapanos*500 + " euroa");
          }
          // jos päivä, kuukausi ja kirjain oikein
-         else if(antamapaiva.equals(koneenpaiva) && antamakuukausi.equals(koneenkuukausi)&& antamakirjain.equals(koneenkirjain)){
+         else if(antamapaiva.equals(koneenpaiva) && antamakuukausi.equals(koneenkuukausi)
+                 && antamakirjain.equals(koneenkirjain)){
          naytaViesti("Voittosi on " + antamapanos*250 + " euroa");
          }
          //jos kuukausi ja vuosi oikein
