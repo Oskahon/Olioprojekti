@@ -29,13 +29,13 @@ public class Visadata {
     public int resetpeli(){
         
         kysytyt.clear();
-        // Palauttaa pistemääräksi 0 ja palauttaa ennätyksen
+        // Palauttaa pistemääräksi 0 ja palauttaa ennätyksen, ja tyhjentää kysytyt listan niin voidaan taas kysyä kaikkia kysymyksiä
         pisteet=0;
         virhepisteet = 0;
         return maxpisteet;
     }
     
-    public String getkysymys(){
+    public String getkysymys(){     // Kysymyksen arpominen
         int y;      
         do {
             x = (int)Math.floor(Math.random() * (Kysymykset.length));
@@ -46,7 +46,7 @@ public class Visadata {
             } else {
                 y = 1;
                 kysytyt.add(x);
-                System.out.println("Lisätty");
+                System.out.println("Lisätty");  // Lisätään kysytyt kysymykset listaan jotta ei kysyttäisi samaa monta kertaa yhdellä kierroksella
             }
         } while (y == -1);             
         String kysymys = Kysymykset[x]; 
