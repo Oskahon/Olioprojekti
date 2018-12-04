@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package kasino;
 
 import java.util.Arrays;
@@ -11,7 +6,7 @@ import java.util.stream.IntStream;
 
 /**
  *
- * @author ahone
+ * @author oskahon
  */
 public class Lotto {
 
@@ -100,7 +95,6 @@ public class Lotto {
 
     }
 
-    
     // 7 Oikein peli
     // Arpoo numeroita niin kauan, että saadaan 7.oikein. Tämän jälkeen laskee lopullisen saldon.
     public String lotto7Start(int[] numerot) {
