@@ -91,41 +91,42 @@ public class View {
 
         for (int i = 0; i < 7; i++) {
 
-            boolean sisaltaa, validi = false;
-            int luku = 0;
+            boolean validi = false;
 
             // Varmistetaan, että annettu arvo on kokonaisluku
             while (!validi) {
+
                 String numero = JOptionPane.showInputDialog(null, "Anna " + (i + 1) + ".numero:");
+
                 try {
                     if (numero == null) {
+                        // Jos painaa cancelia tai ruksia palataan loton alkunäkymään
                         lottoView();
                     } else {
-                        luku = Integer.parseInt(numero);
+                        // luku on kelvollinen
+                        int luku = Integer.parseInt(numero);
                         validi = true;
+
+                        // tarkistetaan, löytyykö luku jo syötetyistä numeroista
+                        boolean sisaltaa = IntStream.of(valitutnumerot).anyMatch(x -> x == luku);
+
+                        if (luku <= 0 || luku > 40) {
+                            i--;
+                            JOptionPane.showMessageDialog(null, "Antamasi luku ei ollut väliltä 1 - 40. Anna uusi luku.");
+                        } else if (sisaltaa) {
+                            i--;
+                            JOptionPane.showMessageDialog(null, "Antamasi numero on jo annettu kertaalleen. Anna uusi luku.");
+                        } else {
+                            valitutnumerot[i] = luku;
+                        }
                     }
                 } catch (Exception e) {
+                    // Jos syötetty arvo ei ole kokonaisluku
                     JOptionPane.showMessageDialog(null, "Et antanut kokonaislukua...");
                 }
             }
-
-            // sisaltaa tarkastus ei toimi jos etsittävä luku on alustettu
-            int arvo;
-            arvo = luku;
-
-            sisaltaa = IntStream.of(valitutnumerot).anyMatch(x -> x == arvo);
-
-            if (arvo <= 0 || arvo > 40) {
-                i--;
-                JOptionPane.showMessageDialog(null, "Antamasi luku ei ollut väliltä 1 - 40. Anna uusi luku.");
-            } else if (sisaltaa) {
-                i--;
-                JOptionPane.showMessageDialog(null, "Antamasi numero on jo annettu kertaalleen. Anna uusi luku.");
-            } else {
-                valitutnumerot[i] = arvo;
-            }
-
         }
+
         Arrays.sort(valitutnumerot);
 
         return valitutnumerot;
