@@ -222,7 +222,6 @@ public class View {
             }
         }
         // käyttäjän luku
-        // kontrolleri vaatii parametrina int, muutetaan se 'lennossa'.
         controller.luvunTalletus1(kayttajanSyotto);
 
         
