@@ -64,7 +64,7 @@ public class View {
 
         // Lotto valikko
         Object[] options = {"Lotto", "7. Oikein", "Lopetus"};
-        int x = JOptionPane.showOptionDialog(null, "Valitse peli tai toiminto", "Valitse peli",
+        int x = JOptionPane.showOptionDialog(null, "Valitse peli tai palaa alkunäkymään", "Valitse peli",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 
         switch (x) {
