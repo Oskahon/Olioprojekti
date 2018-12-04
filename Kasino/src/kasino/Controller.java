@@ -141,6 +141,14 @@ public class Controller {
         String koneenkirjain = peli3.getKoneenkirjain();
         return koneenkirjain;
     }
+    
+   //
+    public String sattumanmaara(String paiva,String kuukausi, String vuosi, String kirjain,
+        String koneenpaiva,String koneenkuukausi, String koneenvuosi, String koneenkirjain){
+    String teksti = peli3.sattumanmaara(paiva, kuukausi, vuosi, kirjain, 
+            koneenpaiva, koneenkuukausi, koneenvuosi, koneenkirjain);
+    return teksti;
+}
     // Synttärin skriptti päättyy
 
     // Ohjelma käynnistyy tästä
